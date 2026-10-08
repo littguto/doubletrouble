@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- SEO básico -->
+  <title>Barbearia Navalha de Ouro | Cortes e barba em São Paulo</title>
+  <meta name="description" content="Barbearia clássica em São Paulo: corte masculino, barba com toalha quente e tratamentos. Agende pelo WhatsApp em poucos segundos.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Barbearia Navalha de Ouro">
+  <meta property="og:description" content="Corte, barba e cuidado masculino em São Paulo. Agende pelo WhatsApp.">
+  <meta property="og:url" content="https://www.seudominio.com.br/">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&h=630&q=70&fm=jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Barbeiro aparando a barba de um cliente">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#111111">
+
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Foto do topo: começa a baixar antes mesmo do navegador ler o <body> -->
+  <link rel="preload" as="image" fetchpriority="high"
+    imagesrcset="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=640&q=60 640w,
+                 https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=960&q=60 960w,
+                 https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1280&q=60 1280w,
+                 https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1920&q=60 1920w"
+    imagesizes="100vw">
+
+  <!-- Fontes sem bloquear a renderização: o texto aparece na hora com a fonte do sistema
+       e troca para a fonte final quando ela chega. Se trocar as fontes, altere as duas URLs. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap"></noscript>
+
+  <style>
+    /* =========================================================
+       PERSONALIZE AQUI: cores e fontes
+       ========================================================= */
+    :root {
+      --cor-primaria: #c9a14a;        /* dourado: botões, destaques */
+      --cor-primaria-escura: #a8842f;
+      --cor-fundo: #111111;           /* fundo principal */
+      --cor-fundo-alt: #1b1b1b;       /* fundo de seções alternadas */
+      --cor-card: #222222;
+      --cor-texto: #f2f2f2;
+      --cor-texto-suave: #b5b5b5;
+      --cor-borda: #333333;
+      --cor-whatsapp: #25d366;
+      --cor-whatsapp-texto: #111111;  /* texto escuro: branco no verde não passa no contraste */
+      --hero-escurecimento: .8;       /* 0 a 1: quanto a foto do topo é escurecida */
+
+      --fonte-titulo: 'Playfair Display', Georgia, serif;
+      --fonte-texto: 'Inter', system-ui, -apple-system, sans-serif;
+
+      --raio: 12px;
+      --largura-max: 1100px;
+    }
+    /* ========================================================= */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--fonte-texto);
+      background: var(--cor-fundo);
+      color: var(--cor-texto);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: var(--fonte-titulo); line-height: 1.2; }
+
+    .container { width: 100%; max-width: var(--largura-max); margin: 0 auto; padding: 0 16px; }
+    section { padding: 64px 0; }
+    section:nth-of-type(even) { background: var(--cor-fundo-alt); }
+    .secao-titulo { font-size: 1.9rem; text-align: center; margin-bottom: 8px; }
+    .secao-sub { text-align: center; color: var(--cor-texto-suave); margin-bottom: 40px; }
+
+    /* Botões */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 26px; border-radius: 999px; font-weight: 600; text-decoration: none;
+      transition: transform .15s, background .15s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-whatsapp { background: var(--cor-whatsapp); color: var(--cor-whatsapp-texto); }
+    .btn-whatsapp:hover { background: #1ebe5a; }
+    .btn svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(17,17,17,.92); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--cor-borda);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.25rem; color: var(--cor-primaria); text-decoration: none; }
+    .menu-toggle {
+      background: none; border: 0; color: var(--cor-texto); cursor: pointer; padding: 8px;
+    }
+    .menu-toggle svg { width: 26px; height: 26px; }
+    .nav-links {
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      flex-direction: column; background: var(--cor-fundo); border-bottom: 1px solid var(--cor-borda);
+      list-style: none;
+    }
+    .nav-links.aberto { display: flex; max-height: calc(100svh - 64px - 60px); overflow-y: auto; }
+    .nav-links a { display: block; padding: 14px 16px; text-decoration: none; color: var(--cor-texto-suave); }
+    .nav-links a:hover { color: var(--cor-primaria); }
+
+    /* Hero */
+    .hero {
+      position: relative; isolation: isolate;
+      min-height: calc(100vh - 64px);
+      min-height: calc(100svh - 64px - 60px); /* svh: ignora a barra de endereço; 60px: barra do WhatsApp */
+      display: flex; align-items: center; text-align: center;
+      background: var(--cor-fundo);
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: -2;
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; z-index: -1;
+      background: #000; opacity: var(--hero-escurecimento);
+    }
+    .hero .tag { color: var(--cor-primaria); text-transform: uppercase; letter-spacing: .15em; font-size: .8rem; font-weight: 600; }
+    .hero h1 { font-size: 2.4rem; margin: 12px 0 16px; }
+    .hero p { color: var(--cor-texto-suave); font-size: 1.05rem; max-width: 560px; margin: 0 auto 32px; }
+
+    /* Serviços */
+    .grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+    .card {
+      background: var(--cor-card); border: 1px solid var(--cor-borda); border-radius: var(--raio);
+      padding: 28px 24px; transition: border-color .2s, transform .2s;
+    }
+    .card:hover { border-color: var(--cor-primaria); transform: translateY(-4px); }
+    .card-icone { font-size: 2rem; margin-bottom: 12px; }
+    .card h3 { font-size: 1.3rem; margin-bottom: 8px; }
+    .card p { color: var(--cor-texto-suave); font-size: .95rem; }
+    .preco { display: block; margin-top: 16px; color: var(--cor-primaria); font-weight: 600; font-size: 1.1rem; }
+
+    /* Depoimentos */
+    .depoimento blockquote { font-style: italic; color: var(--cor-texto); margin-bottom: 16px; }
+    .estrelas { color: var(--cor-primaria); letter-spacing: 2px; margin-bottom: 12px; }
+    .autor { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--cor-primaria); color: var(--cor-fundo);
+      display: grid; place-items: center; font-weight: 600;
+    }
+    .autor small { display: block; color: var(--cor-texto-suave); }
+
+    /* Localização */
+    .local-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+    .local-info li { list-style: none; margin-bottom: 16px; }
+    .local-info strong { display: block; color: var(--cor-primaria); }
+    .mapa { border-radius: var(--raio); overflow: hidden; border: 1px solid var(--cor-borda); min-height: 300px; }
+    .mapa iframe { width: 100%; height: 100%; min-height: 300px; border: 0; display: block; }
+
+    /* FAQ */
+    .faq { max-width: 760px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--cor-borda); }
+    .faq-pergunta {
+      width: 100%; background: none; border: 0; color: var(--cor-texto); text-align: left;
+      font: 600 1.05rem var(--fonte-texto); padding: 20px 0; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .faq-pergunta .icone { color: var(--cor-primaria); font-size: 1.5rem; transition: transform .25s; flex-shrink: 0; }
+    .faq-item.aberto .icone { transform: rotate(45deg); }
+    .faq-resposta { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-resposta p { color: var(--cor-texto-suave); padding-bottom: 20px; }
+
+    /* Rodapé */
+    footer { background: #0a0a0a; padding: 40px 0 24px; text-align: center; border-top: 1px solid var(--cor-borda); }
+    .sociais { display: flex; justify-content: center; gap: 16px; margin: 20px 0; }
+    .sociais a {
+      width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--cor-borda);
+      display: grid; place-items: center; transition: background .2s, border-color .2s;
+    }
+    .sociais a:hover { background: var(--cor-primaria); border-color: var(--cor-primaria); color: var(--cor-fundo); }
+    .sociais svg { width: 20px; height: 20px; fill: currentColor; }
+    footer small { color: var(--cor-texto-suave); }
+
+    /* Botão de WhatsApp: barra fixa no rodapé (celular) / círculo flutuante (desktop) */
+    body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+    .whats-flutuante {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 60px; padding-bottom: env(safe-area-inset-bottom);
+      background: var(--cor-whatsapp); color: var(--cor-whatsapp-texto);
+      font-weight: 600; font-size: 1.05rem; text-decoration: none;
+      box-shadow: 0 -4px 16px rgba(0,0,0,.35);
+    }
+    .whats-flutuante svg { width: 26px; height: 26px; fill: currentColor; }
+
+    /* =========================================================
+       BREAKPOINTS
+       até 767px ........ celular (1 coluna, menu hambúrguer, barra de WhatsApp)
+       768px–1023px ..... tablet (2 colunas, menu aberto, barra de WhatsApp)
+       1024px+ .......... desktop (3 colunas, WhatsApp em círculo)
+       celular deitado .. (altura até 500px) WhatsApp em círculo, topo mais compacto
+       ========================================================= */
+
+    /* Tablet */
+    @media (min-width: 768px) {
+      section { padding: 96px 0; }
+      .secao-titulo { font-size: 2.4rem; }
+      .hero h1 { font-size: 3.6rem; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .local-grid { grid-template-columns: 1fr 1.5fr; align-items: stretch; }
+      .menu-toggle { display: none; }
+      .nav-links {
+        display: flex; position: static; flex-direction: row; background: none; border: 0; gap: 4px;
+        max-height: none;
+      }
+      .nav-links a { padding: 8px 12px; }
+    }
+    /* Só no tablet: card que sobra sozinho na última linha ocupa a largura toda */
+    @media (min-width: 768px) and (max-width: 1023.98px) {
+      .grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+    }
+
+    /* Desktop */
+    @media (min-width: 1024px) {
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .hero { min-height: calc(100svh - 64px); }
+    }
+
+    /* Celular deitado */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .hero { min-height: auto; padding: 48px 0; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { margin-bottom: 20px; }
+      section { padding: 48px 0; }
+    }
+
+    /* WhatsApp vira círculo flutuante: desktop ou celular deitado (a barra comeria a tela) */
+    @media (min-width: 1024px), (max-height: 500px) and (orientation: landscape) {
+      body { padding-bottom: 0; }
+      .whats-flutuante {
+        left: auto; right: calc(16px + env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom));
+        min-height: 0; padding: 0;
+        width: 56px; height: 56px; border-radius: 50%;
+        box-shadow: 0 6px 20px rgba(0,0,0,.4);
+      }
+      .whats-flutuante svg { width: 30px; height: 30px; }
+      .whats-flutuante-texto { display: none; }
+    }
+    @media (min-width: 1024px) {
+      .whats-flutuante { right: 24px; bottom: 24px; width: 60px; height: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="container nav" aria-label="Principal">
+      <a href="#inicio" class="logo">Navalha de Ouro</a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <ul class="nav-links" id="menu">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#localizacao">Localização</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <!-- Imagem responsiva: o navegador baixa só o tamanho que a tela precisa.
+           Fica "eager" (sem lazy) de propósito: é a primeira coisa visível. -->
+      <img class="hero-bg"
+        src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=960&q=60"
+        srcset="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=640&q=60 640w,
+                https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=960&q=60 960w,
+                https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1280&q=60 1280w,
+                https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1920&q=60 1920w"
+        sizes="100vw" width="1920" height="1280" alt=""
+        fetchpriority="high" decoding="async">
+      <div class="container">
+        <span class="tag">Desde 2012 · São Paulo</span>
+        <h1>Estilo clássico, corte na medida</h1>
+        <p>Corte masculino, barba com toalha quente e atendimento sem pressa. Reserve seu horário em segundos.</p>
+        <a class="btn btn-whatsapp js-whatsapp" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88zm8.41-18.3A11.81 11.81 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.48-8.41z"/></svg>
+          Agendar pelo WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos">
+      <div class="container">
+        <h2 class="secao-titulo">Serviços</h2>
+        <p class="secao-sub">Tudo o que você precisa para sair renovado</p>
+        <div class="grid grid-3">
+          <article class="card">
+            <div class="card-icone" aria-hidden="true">✂️</div>
+            <h3>Corte masculino</h3>
+            <p>Tesoura ou máquina, do clássico ao moderno, com lavagem e finalização.</p>
+            <span class="preco">R$ 50</span>
+          </article>
+          <article class="card">
+            <div class="card-icone" aria-hidden="true">🪒</div>
+            <h3>Barba completa</h3>
+            <p>Navalha, toalha quente, óleo e balm. Desenho e acabamento impecáveis.</p>
+            <span class="preco">R$ 40</span>
+          </article>
+          <article class="card">
+            <div class="card-icone" aria-hidden="true">💈</div>
+            <h3>Corte + barba</h3>
+            <p>O combo completo com desconto. O mais pedido da casa.</p>
+            <span class="preco">R$ 80</span>
+          </article>
+          <article class="card">
+            <div class="card-icone" aria-hidden="true">🎨</div>
+            <h3>Pigmentação</h3>
+            <p>Disfarça falhas na barba ou no cabelo com resultado natural.</p>
+            <span class="preco">R$ 35</span>
+          </article>
+          <article class="card">
+            <div class="card-icone" aria-hidden="true">🧖</div>
+            <h3>Limpeza de pele</h3>
+            <p>Esfoliação, máscara e hidratação para o rosto masculino.</p>
+            <span class="preco">R$ 60</span>
+          </article>
+          <article class="card">
+            <div class="card-icone" aria-hidden="true">👦</div>
+            <h3>Corte infantil</h3>
+            <p>Atendimento paciente e cuidadoso para crianças até 12 anos.</p>
+            <span class="preco">R$ 40</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section id="depoimentos">
+      <div class="container">
+        <h2 class="secao-titulo">O que dizem nossos clientes</h2>
+        <p class="secao-sub">Avaliações de quem já passou pela cadeira</p>
+        <div class="grid grid-3">
+          <article class="card depoimento">
+            <div class="estrelas" aria-label="5 de 5 estrelas">★★★★★</div>
+            <blockquote>"Melhor barba que já fiz. Atendimento pontual e o ambiente é muito agradável."</blockquote>
+            <div class="autor"><span class="avatar">R</span><div>Rafael M.<small>Cliente desde 2019</small></div></div>
+          </article>
+          <article class="card depoimento">
+            <div class="estrelas" aria-label="5 de 5 estrelas">★★★★★</div>
+            <blockquote>"Agendei pelo WhatsApp em um minuto. O corte ficou exatamente como eu pedi."</blockquote>
+            <div class="autor"><span class="avatar">T</span><div>Thiago S.<small>Cliente desde 2022</small></div></div>
+          </article>
+          <article class="card depoimento">
+            <div class="estrelas" aria-label="5 de 5 estrelas">★★★★★</div>
+            <blockquote>"Levo meu filho e corto junto. Equipe atenciosa e preço justo."</blockquote>
+            <div class="autor"><span class="avatar">L</span><div>Lucas A.<small>Cliente desde 2021</small></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO -->
+    <section id="localizacao">
+      <div class="container">
+        <h2 class="secao-titulo">Onde estamos</h2>
+        <p class="secao-sub">Fácil acesso e perto do metrô</p>
+        <div class="local-grid">
+          <ul class="local-info">
+            <li><strong>Endereço</strong>Av. Paulista, 1000 · Bela Vista, São Paulo · SP</li>
+            <li><strong>Horário</strong>Seg a Sex: 9h às 20h<br>Sábado: 9h às 18h<br>Domingo: fechado</li>
+            <li><strong>Telefone</strong>(11) 99999-9999</li>
+            <li><a class="btn btn-whatsapp js-whatsapp" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a></li>
+          </ul>
+          <div class="mapa">
+            <iframe
+              title="Mapa da barbearia"
+              data-src="https://maps.google.com/maps?q=Av.%20Paulista%2C%201000%2C%20S%C3%A3o%20Paulo&z=16&output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <h2 class="secao-titulo">Perguntas frequentes</h2>
+        <p class="secao-sub">Tire suas dúvidas antes de vir</p>
+        <div class="faq">
+          <div class="faq-item">
+            <button class="faq-pergunta" aria-expanded="false">Preciso agendar ou posso chegar direto?<span class="icone">+</span></button>
+            <div class="faq-resposta"><p>Recomendamos agendar pelo WhatsApp para garantir o horário, mas atendemos por ordem de chegada quando há vaga.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-pergunta" aria-expanded="false">Quais formas de pagamento vocês aceitam?<span class="icone">+</span></button>
+            <div class="faq-resposta"><p>Pix, dinheiro e cartões de débito e crédito.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-pergunta" aria-expanded="false">Quanto tempo dura um corte?<span class="icone">+</span></button>
+            <div class="faq-resposta"><p>Em média 40 minutos. O combo corte + barba leva cerca de 1 hora.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-pergunta" aria-expanded="false">Tem estacionamento?<span class="icone">+</span></button>
+            <div class="faq-resposta"><p>Temos convênio com um estacionamento ao lado, com 1 hora grátis para clientes.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-pergunta" aria-expanded="false">Posso cancelar ou remarcar?<span class="icone">+</span></button>
+            <div class="faq-resposta"><p>Sim, é só avisar pelo WhatsApp com pelo menos 2 horas de antecedência.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <div class="container">
+      <a href="#inicio" class="logo">Navalha de Ouro</a>
+      <div class="sociais">
+        <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+        </a>
+        <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.64L18 8h-4V6.33C14 5.38 14.19 5 15.11 5H18V0h-3.81C10.6 0 9 1.58 9 4.61V8z"/></svg>
+        </a>
+        <a href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.04.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+        </a>
+        <a class="js-whatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.8a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88zm8.41-18.3A11.81 11.81 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.48-8.41z"/></svg>
+        </a>
+      </div>
+      <small>© <span id="ano"></span> Barbearia Navalha de Ouro · Todos os direitos reservados</small>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flutuante -->
+  <a class="whats-flutuante js-whatsapp" href="#" target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.8a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88zm8.41-18.3A11.81 11.81 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.48-8.41z"/></svg>
+    <span class="whats-flutuante-texto">Agendar pelo WhatsApp</span>
+  </a>
+
+  <script>
+    // ===== PERSONALIZE AQUI: número e mensagem =====
+    // Formato internacional: 55 (Brasil) + DDD + número. Ex.: 5571999999999
+    // ATENÇÃO: o número abaixo é FICTÍCIO. Troque pelo WhatsApp real da barbearia.
+    const WHATSAPP_NUMERO = '5511999999999';
+    const WHATSAPP_MENSAGEM = 'Olá! Gostaria de agendar um horário.';
+    // ===============================================================================
+
+    // Aceita o número digitado de qualquer jeito ("+55 (71) 99999-9999", "071 99999-9999"...)
+    // e converte para o formato do wa.me: só dígitos, com 55 na frente, sem + e sem 0 inicial.
+    function normalizarNumero(bruto) {
+      let n = String(bruto).replace(/\D/g, '').replace(/^0+/, '');
+      if (n.length === 10 || n.length === 11) n = '55' + n;   // faltou o código do país
+      if (!/^55[1-9]{2}9?\d{8}$/.test(n)) {
+        console.warn(`WHATSAPP_NUMERO "${bruto}" não parece um número brasileiro válido. Use 55 + DDD + número, ex.: 5571999999999`);
+      }
+      return n;
+    }
+    const linkWhats = `https://wa.me/${normalizarNumero(WHATSAPP_NUMERO)}?text=${encodeURIComponent(WHATSAPP_MENSAGEM)}`;
+    document.querySelectorAll('.js-whatsapp').forEach(a => a.href = linkWhats);
+
+    // Menu mobile
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('menu');
+    toggle.addEventListener('click', () => {
+      const aberto = menu.classList.toggle('aberto');
+      toggle.setAttribute('aria-expanded', aberto);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('aberto');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+
+    // FAQ (acordeão)
+    document.querySelectorAll('.faq-pergunta').forEach(botao => {
+      botao.addEventListener('click', () => {
+        const item = botao.parentElement;
+        const resposta = item.querySelector('.faq-resposta');
+        const aberto = item.classList.toggle('aberto');
+        botao.setAttribute('aria-expanded', aberto);
+        resposta.style.maxHeight = aberto ? resposta.scrollHeight + 'px' : null;
+      });
+    });
+
+    // Lazy loading: qualquer <img> ou <iframe> com data-src só carrega perto de aparecer na tela
+    const lazy = document.querySelectorAll('[data-src]');
+    const carregar = el => { el.src = el.dataset.src; el.removeAttribute('data-src'); };
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entradas) => {
+        entradas.forEach(e => { if (e.isIntersecting) { carregar(e.target); obs.unobserve(e.target); } });
+      }, { rootMargin: '300px' });
+      lazy.forEach(el => obs.observe(el));
+    } else {
+      lazy.forEach(carregar);
+    }
+
+    // Ano no rodapé
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
